@@ -3,3 +3,8 @@ export type BaseResponse<T = any> = {
     message: string;
     data: T;
 };
+
+export type BaseReduxRTKResponse<T = any> = {
+    data: T;
+    status: number;
+};

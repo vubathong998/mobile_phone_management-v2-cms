@@ -1,27 +1,24 @@
-// import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import { Outlet } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 
-// const authToken = Cookies.get('Authorization');
+const authToken = Cookies.get('_cms_auth');
 
 const Layout = () => {
-    // const navigate = useNavigate();
-    // if (!authToken) {
-    //     console.log('false token');
-    //     // navigate('/login/abcd');
-    // }
-    // console.log({ authToken });
+    if (!authToken) {
+        console.log('false token');
+        window.location.href = '/login';
+    }
 
     return (
         <>
-            <>
-                <h1>layout</h1>
-                <Outlet />
-            </>
-            {/* {authToken ? (
+            {authToken ? (
+                <>
+                    <h1>layout</h1>
+                    <Outlet />
+                </>
             ) : (
                 <></>
-            )} */}
+            )}
         </>
     );
 };

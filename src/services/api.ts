@@ -10,28 +10,31 @@ import Cookies from 'js-cookie';
 import { BaseQueryFn, QueryReturnValue } from 'node_modules/@reduxjs/toolkit/dist/query/baseQueryTypes';
 import { RetryOptions } from 'node_modules/@reduxjs/toolkit/dist/query/retry';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-
-const navigate = useNavigate();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 interface ExtendedHeaders extends Headers {
     ContentType?: string;
     Authorization?: string;
 }
+// console.log(process.env.AuthCookieName);
 
 const staggeredBaseQuery = retry(
     fetchBaseQuery({
-        baseUrl: process.env.API_URL,
+        // baseUrl: process.env.API_URL,
+        baseUrl: 'http://localhost:6001/api',
         mode: 'cors',
         prepareHeaders: (
             headers: ExtendedHeaders
             // , { getState }
         ) => {
-            const token = Cookies.get(process.env.AuthCookieName || '');
+            // const token = Cookies.get(process.env.AuthCookieName || '');
+            const token = Cookies.get('_cms_auth');
             headers.set('Authorization', `Bearer ${token}`);
             // headers.set('AcceptLanguage', Cookies.get(process.env.LANGUAGE || ''));
         }
-    })
+    }),
+    { maxRetries: 0 }
 );
 
 const baseQueryWithReAuth: BaseQueryFn<
@@ -46,6 +49,7 @@ const baseQueryWithReAuth: BaseQueryFn<
         api,
         extraOptions
     );
+    // const navigate = useNavigate();
     console.log('check response ', { result });
     if (result?.error) {
         switch (result.error.status) {
@@ -58,7 +62,7 @@ const baseQueryWithReAuth: BaseQueryFn<
                         title: `Bạn chưa đăng nhập`,
                         text: 'Vui lòng đăng nhập lại!'
                     }).then(() => {
-                        navigate('/login');
+                        window.location.href = '/login';
                     });
                 }
                 break;

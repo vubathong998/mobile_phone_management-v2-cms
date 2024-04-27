@@ -1,4 +1,4 @@
-export type AccountModel = {
+export interface LoginFormDateInterface {
     username: string;
     password: string;
-};
+}
