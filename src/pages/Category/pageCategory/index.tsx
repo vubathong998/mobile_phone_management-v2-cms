@@ -1,7 +1,5 @@
-// import { RouteMatch } from 'react-router-dom';
-
+// import { RouteMa
 const PageCategory = ({ match }: any) => {
-    console.log({ match });
     return <h1>PageCategory</h1>;
 };
 

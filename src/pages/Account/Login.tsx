@@ -1,15 +1,14 @@
 import Cookies from 'js-cookie';
 // import Swal from 'sweetalert2';
-import { register } from 'module';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { LoginFormDateInterface } from '~/models/Account/AccountInterface';
 import { BaseReduxRTKResponse, BaseResponse } from '~/models/Base/BaseResponse';
 import { useLoginMutation } from '~/services/account';
 
 const Login = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     /* #region queries */
     const [login, loginState] = useLoginMutation();
@@ -29,18 +28,16 @@ const Login = () => {
 
     /* #region functions */
     const onSubmit = (data: LoginFormDateInterface) => {
-        console.log({ data });
         login({ password: data.password, username: data.username })
             .unwrap()
             .then((response) => {
                 if (response.token) {
-                    setLoginErr('')
+                    setLoginErr('');
                     Cookies.set('_cms_auth', response.token);
-                }
-                else {
-                    setLoginErr('Đã có lỗi xảy ra vui lòng thử lại sau')
+                    navigate('/');
+                } else {
+                    setLoginErr('Đã có lỗi xảy ra vui lòng thử lại sau');
                     Cookies.set('_cms_auth', '');
-
                 }
             })
             .catch((err: BaseReduxRTKResponse<BaseResponse>) => {
@@ -71,7 +68,7 @@ const Login = () => {
                                 // name='username'
                                 // id='email'
                                 className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                                placeholder='name@company.com'
+                                placeholder='username123'
                                 // required=""
                                 {...register('username', {
                                     required: {
@@ -94,7 +91,7 @@ const Login = () => {
                                 Mật khẩu
                             </label>
                             <input
-                                // type='password'
+                                type='password'
                                 // name='password'
                                 // id='password'
                                 placeholder='••••••••'
@@ -151,9 +148,9 @@ const Login = () => {
                             Đăng nhập
                         </button>
                         <p className='text-sm font-light text-gray-500 dark:text-gray-400'>
-                            Don’t have an account yet?{' '}
+                            Bạn không có tài khoản?{' '}
                             <a href='#' className='font-medium text-primary-600 hover:underline dark:text-primary-500'>
-                                Sign up
+                                Đăng ký tại đây
                             </a>
                         </p>
                     </form>

@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { api } from './api';
 import returnUrl from '~/features/returnUrl/returnUrlSlice';
+import identity from '~/features/identityUser/identityUser';
 
 export const store = configureStore({
     reducer: {
         [api.reducerPath]: api.reducer,
-        returnUrl: returnUrl
+        returnUrl: returnUrl,
+        identity: identity
     },
     // reducer: {
     //     // Add the generated reducer as a specific top-level slice

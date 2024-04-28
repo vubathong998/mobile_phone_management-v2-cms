@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
+
+/* Additional styles */
+/* @import 'additional-styles/utility-patterns.css';
+@import 'additional-styles/flatpickr.css'; */
+
 @tailwind utilities;
