@@ -50,7 +50,6 @@ const baseQueryWithReAuth: BaseQueryFn<
         extraOptions
     );
     // const navigate = useNavigate();
-    console.log('check response ', { result });
     if (result?.error) {
         switch (result.error.status) {
             case 401:

@@ -8,3 +8,10 @@ export type BaseReduxRTKResponse<T = any> = {
     data: T;
     status: number;
 };
+
+export type BaseGetByPageResponse<T> = {
+    limit: number;
+    page: string;
+    result: T;
+    total: number;
+};

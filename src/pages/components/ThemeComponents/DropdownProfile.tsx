@@ -55,7 +55,7 @@ const DropdownProfile: FC<IProps> = ({ align }) => {
                 aria-expanded={dropdownOpen}
             >
                 <img className='w-8 h-8 rounded-full' src={identity.avatar} width='32' height='32' alt='User' />
-                <div className='flex items-center truncate'>
+                <div className='flex items-center truncate max-w-[160px]'>
                     <span className='truncate ml-2 text-sm font-medium dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-slate-200'>
                         {identity.firstName + ' ' + identity.lastName}
                     </span>

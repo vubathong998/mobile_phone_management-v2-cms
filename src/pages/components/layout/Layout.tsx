@@ -22,7 +22,9 @@ const Layout = () => {
                     {/* Content area */}
                     <div className='relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
                         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-                        <Outlet />
+                        <div className='p-4'>
+                            <Outlet />
+                        </div>
                     </div>
                 </div>
             ) : (
