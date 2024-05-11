@@ -1,6 +1,6 @@
 import { cilPlus } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { CategoriesGetByPageRequest } from '~/models/Categories/CategoriesRequest';
 import Dialog from '~/pages/components/UI/Dialog';
 import Pagination from '~/pages/components/Pagination/Pagination';
@@ -9,38 +9,77 @@ import CreateCategory from './components/CreateCategory';
 import DateObject from 'react-date-object';
 import WithPermission from '~/pages/components/Authorize/WithPermission';
 import { PERMISSION } from '~/constants/permission';
+import Button from '~/pages/components/UI/Button';
+import { swalFireSuccess, swalFireToastSuccess } from '~/utils/swalFire';
+import { SetURLSearchParams, URLSearchParamsInit, useSearchParams } from 'react-router-dom';
+import { BaseGetByPageRequest, FilterOrderByEnum } from '~/models/Base/BaseRequest';
+import objectToQueryString from '~/utils/objectToQueryString';
 
 // import { RouteMa
 const PageCategory: () => JSX.Element = () => {
+    const [params, setParams] = useSearchParams();
     const [request, setRequest] = useState<CategoriesGetByPageRequest>({
-        page: 1,
-        limit: 10
+        page: parseInt(params.get('page') as string) || 1,
+        limit: parseInt(params.get('limit') as string) || 10
     });
-    const { data } = useCategoriesGetByPageQuery(request);
+    const { data, isLoading, isFetching, refetch } = useCategoriesGetByPageQuery(request);
 
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
     const handleChangePage = (page: number) => {
-        setRequest((old) => ({
-            ...old,
-            page: page
-        }));
+        // const dataSetParams: CategoriesGetByPageRequest = {
+        //     limit: request?.limit || 10,
+        //     page: request?.page || 1,
+        //     FieldName: request.FieldName || 'createdByDate',
+        //     keyword: request.keyword || '',
+        //     orderBy: request.orderBy || FilterOrderByEnum.ASC
+        // };
+        // console.log({ request });
+
+        // setRequest((old) => ({
+        //     ...old,
+        //     page: page
+        // }));
+        const dataSetParams: string = objectToQueryString({ ...request, page });
+        setParams(dataSetParams);
     };
+
+    const handleAfterCreate = () => {
+        setIsShowModal(false);
+        refetch();
+        swalFireToastSuccess({});
+    };
+
+    useEffect(() => {
+        setRequest({
+            page: parseInt(params.get('page') as string) || 1,
+            limit: parseInt(params.get('limit') as string) || 10
+        });
+    }, [params]);
 
     return (
         <div className='flex flex-col gap-4'>
             <div className='flex justify-end'>
-                <button
+                {/* <button
                     type='button'
                     className='bg-primary-700 text-white px-3 py-1 rounded flex items-center gap-1'
                     onClick={() => setIsShowModal(true)}
                 >
                     <CIcon icon={cilPlus} style={{ width: '20px' }} />
                     Thêm category
-                </button>
+                </button> */}
+                <Button
+                    disabled={isLoading || isFetching}
+                    type='button'
+                    onClick={() => setIsShowModal(true)}
+                    className='flex gap-1 items-center'
+                >
+                    <CIcon icon={cilPlus} style={{ width: '20px' }} />
+                    Thêm loại hàng
+                </Button>
                 {isShowModal && (
                     <Dialog title={'Thêm category'} setIsShowModal={setIsShowModal}>
-                        <CreateCategory />
+                        <CreateCategory afterCreate={handleAfterCreate} />
                     </Dialog>
                 )}
             </div>
@@ -76,17 +115,22 @@ const PageCategory: () => JSX.Element = () => {
                 page={request.page}
                 total={data?.total || 1}
                 onChange={handleChangePage}
-                onSizeChange={(page) => {
-                    console.log({ page });
+                onSizeChange={(limit) => {
+                    const dataSetParams: string = objectToQueryString({ ...request, limit, page: 1 });
+                    setParams(dataSetParams);
                 }}
             />
         </div>
     );
 };
 
-export default WithPermission(PageCategory, [PERMISSION.Category]);
+// export default WithPermission(PageCategory, [PERMISSION.Category]);
+
+// export default <WithPermission childrenElement={PageCategory} permission={[PERMISSION.Category]} />;
 
 // export default WithPermission({
 //     children: <PageCategory />,
 //     permission: [PERMISSION.Category]
 // });
+
+export default PageCategory;

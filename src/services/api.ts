@@ -54,7 +54,8 @@ const baseQueryWithReAuth: BaseQueryFn<
         switch (result.error.status) {
             case 401:
                 {
-                    Cookies.remove('Authorization');
+                    console.log({ result });
+                    Cookies.remove('_cms_auth');
 
                     Swal.fire({
                         type: 'warning',

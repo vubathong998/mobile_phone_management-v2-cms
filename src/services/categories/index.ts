@@ -2,6 +2,6 @@ import queries from './query';
 
 // const actions: typeof queries = queries;
 
-const { useCategoriesGetByPageQuery } = queries;
+const { useCategoriesGetByPageQuery, useCategoriesCreateMutation } = queries;
 
-export { useCategoriesGetByPageQuery };
+export { useCategoriesGetByPageQuery, useCategoriesCreateMutation };

@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler } from 'react';
+import { FC, MouseEventHandler, ChangeEventHandler } from 'react';
 import PieceOfPagination from './PieceOfPagination';
 
 interface IProps {
@@ -6,7 +6,7 @@ interface IProps {
     page: number;
     total: number;
     onChange: (page: number) => void;
-    onSizeChange: (page: number) => void;
+    onSizeChange?: (size: number) => void;
     isLoading?: boolean;
 }
 
@@ -17,7 +17,6 @@ const Pagination: FC<IProps> = (props) => {
         e.preventDefault();
         e.stopPropagation();
         if (totalPage > 1 && page > 1) {
-            console.log('clicked');
             onChange(page - 1);
         }
     };
@@ -31,8 +30,26 @@ const Pagination: FC<IProps> = (props) => {
         }
     };
 
+    const handleSizeChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
+        const size = e.target.value;
+
+        onSizeChange && onSizeChange(Number(size));
+    };
+
     return (
-        <div className='mt-6 flex justify-end'>
+        <div className='mt-6 flex justify-end items-center gap-6'>
+            {onSizeChange && (
+                <div className='border p-1'>
+                    <select className='text-gray-500 outline-none' value={limit} onChange={handleSizeChange}>
+                        <option value='1'>1</option>
+                        <option value='5'>5</option>
+                        <option value='10'>10</option>
+                        <option value='20'>20</option>
+                        <option value='50'>50</option>
+                        <option value='100'>100</option>
+                    </select>
+                </div>
+            )}
             <nav className='flex items-center gap-x-1'>
                 <button
                     disabled={isLoading}
