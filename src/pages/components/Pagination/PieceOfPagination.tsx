@@ -12,14 +12,14 @@ const PieceOfPagination: FC<IProps> = (props) => {
     const { limit, page, total, onChange, isLoading } = props;
     const totalPage = Math.ceil(total / limit);
     useEffect(() => {
-        console.log({ page, total, totalPage, limit });
+        // console.log({ page, total, totalPage, limit });
     }, [props]);
     const handleChangePage = (page: number) => {
         onChange(page);
     };
 
     if (totalPage <= 1) {
-        console.log('case 1');
+        // console.log('case 1');
         return (
             <button
                 disabled={isLoading}
@@ -31,7 +31,7 @@ const PieceOfPagination: FC<IProps> = (props) => {
             </button>
         );
     } else if (totalPage <= 10) {
-        console.log('case 2');
+        // console.log('case 2');
         let arrayTotalPageForMap: Array<string> = [];
         for (let i = 0; i < totalPage; i++) {
             arrayTotalPageForMap.push('');
@@ -55,7 +55,7 @@ const PieceOfPagination: FC<IProps> = (props) => {
             </>
         );
     } else if (page < totalPage - 7 && page > 7) {
-        console.log('case 3');
+        // console.log('case 3');
         let arrayTotalPageForMap: Array<string> = [];
         for (let i = 0; i < 10; i++) {
             arrayTotalPageForMap.push('');
@@ -121,7 +121,7 @@ const PieceOfPagination: FC<IProps> = (props) => {
             </>
         );
     } else if (page < totalPage - 7) {
-        console.log('case 5');
+        // console.log('case 5');
         let arrayTotalPageForMap: Array<string> = [];
         for (let i = 0; i < 10; i++) {
             arrayTotalPageForMap.push('');
@@ -166,7 +166,7 @@ const PieceOfPagination: FC<IProps> = (props) => {
             </>
         );
     } else {
-        console.log('case 5');
+        // console.log('case 5');
         let arrayTotalPageForMap: Array<number> = [];
         for (let i = totalPage - 10; i < totalPage; i++) {
             arrayTotalPageForMap.push(i + 1);

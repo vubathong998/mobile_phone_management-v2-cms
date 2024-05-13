@@ -1,3 +1,9 @@
+# Cách Chạy test
+b1. chạy project api trước để lấy endpoint. 
+b2. tạm thời chưa xây dựng xong phần quyền nên vào db hard tạm trường permission trong bảng "account" là "["admin"]" để lấy quyền sử lý cms.
+b2. chạy project này bằng npm run dev.
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

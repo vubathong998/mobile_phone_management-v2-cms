@@ -1,22 +1,24 @@
 import { cilPlus } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
-import { Fragment, useEffect, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import { CategoriesGetByPageRequest } from '~/models/Categories/CategoriesRequest';
 import Dialog from '~/pages/components/UI/Dialog';
 import Pagination from '~/pages/components/Pagination/Pagination';
 import { useCategoriesGetByPageQuery } from '~/services/categories';
 import CreateCategory from './components/CreateCategory';
 import DateObject from 'react-date-object';
-import WithPermission from '~/pages/components/Authorize/WithPermission';
 import { PERMISSION } from '~/constants/permission';
 import Button from '~/pages/components/UI/Button';
-import { swalFireSuccess, swalFireToastSuccess } from '~/utils/swalFire';
-import { SetURLSearchParams, URLSearchParamsInit, useSearchParams } from 'react-router-dom';
-import { BaseGetByPageRequest, FilterOrderByEnum } from '~/models/Base/BaseRequest';
+import { swalFireToastSuccess } from '~/utils/swalFire';
+import { useSearchParams } from 'react-router-dom';
 import objectToQueryString from '~/utils/objectToQueryString';
+import { withPermission } from '~/utils/withPermission';
 
 // import { RouteMa
-const PageCategory: () => JSX.Element = () => {
+
+interface IProps {}
+
+const PageCategory: FC<IProps> = () => {
     const [params, setParams] = useSearchParams();
     const [request, setRequest] = useState<CategoriesGetByPageRequest>({
         page: parseInt(params.get('page') as string) || 1,
@@ -124,13 +126,4 @@ const PageCategory: () => JSX.Element = () => {
     );
 };
 
-// export default WithPermission(PageCategory, [PERMISSION.Category]);
-
-// export default <WithPermission childrenElement={PageCategory} permission={[PERMISSION.Category]} />;
-
-// export default WithPermission({
-//     children: <PageCategory />,
-//     permission: [PERMISSION.Category]
-// });
-
-export default PageCategory;
+export default withPermission(PageCategory, [PERMISSION.Admin, PERMISSION.Category]);
