@@ -1,4 +1,4 @@
-import PageCategory from '~/pages/Category/pageCategory';
+import PageCategory from '~/pages/Category/PageCategory';
 import { RouteItemInterface } from './routeType';
 
 type RouteInterface = Array<RouteItemInterface>;

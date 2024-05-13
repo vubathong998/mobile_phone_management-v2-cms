@@ -1,11 +1,14 @@
 /// <reference types="react" />
-export type RouteItemInterface = {
+
+import { ComponentType, FunctionComponent } from 'react';
+
+export type RouteItemInterface<T = any> = {
     name: string;
     path: string;
-    subRoutes?: Array<RouteItemInterface>;
+    subRoutes?: Array<RouteItemInterface<T>>;
     header?: Array<HeaderInterface>;
     exact?: boolean;
-    component?: React.FunctionComponent<any>;
+    component?: FunctionComponent<T> | ComponentType<T>;
     isPrivate?: boolean;
 };
 export type HeaderInterface = {

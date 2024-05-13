@@ -5,7 +5,6 @@ import { CategoriesGetByPageRequest } from '~/models/Categories/CategoriesReques
 import Dialog from '~/pages/components/UI/Dialog';
 import Pagination from '~/pages/components/Pagination/Pagination';
 import { useCategoriesGetByPageQuery } from '~/services/categories';
-import CreateCategory from './components/CreateCategory';
 import DateObject from 'react-date-object';
 import { PERMISSION } from '~/constants/permission';
 import Button from '~/pages/components/UI/Button';
@@ -13,6 +12,7 @@ import { swalFireToastSuccess } from '~/utils/swalFire';
 import { useSearchParams } from 'react-router-dom';
 import objectToQueryString from '~/utils/objectToQueryString';
 import { withPermission } from '~/utils/withPermission';
+import CreateCategory from './components/CreateCategory';
 
 // import { RouteMa
 
@@ -126,4 +126,4 @@ const PageCategory: FC<IProps> = () => {
     );
 };
 
-export default withPermission(PageCategory, [PERMISSION.Admin, PERMISSION.Category]);
+export default withPermission<IProps>(PageCategory, [PERMISSION.Admin, PERMISSION.Category]);
