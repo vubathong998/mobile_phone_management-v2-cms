@@ -1,5 +1,5 @@
 //copied from theme
-import { cilList } from '@coreui/icons';
+import { cilList, cilMicrophone, cilPhone, cilScreenSmartphone } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import { Dispatch, useState, useEffect, useRef, FC } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -138,6 +138,9 @@ const Sidebar: FC<IProps> = (props) => {
                                     className={`block text-slate-200 truncate transition duration-150 ${
                                         pathname.includes('messages') ? 'hover:text-slate-200' : 'hover:text-white'
                                     }`}
+                                    onClick={() => {
+                                        setSidebarOpen(false);
+                                    }}
                                 >
                                     <div className='flex items-center justify-between'>
                                         <div className='grow flex items-center'>
@@ -154,6 +157,45 @@ const Sidebar: FC<IProps> = (props) => {
                                             />
                                             <span className='text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200'>
                                                 Category
+                                            </span>
+                                        </div>
+                                        {/* Badge */}
+                                        {/* <div className='flex flex-shrink-0 ml-2'>
+                                            <span className='inline-flex items-center justify-center h-5 text-xs font-medium text-white bg-indigo-500 px-2 rounded'>
+                                                4
+                                            </span>
+                                        </div> */}
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('messages') && 'bg-slate-900'}`}
+                            >
+                                <NavLink
+                                    end
+                                    to={paths.phone}
+                                    className={`block text-slate-200 truncate transition duration-150 ${
+                                        pathname.includes('messages') ? 'hover:text-slate-200' : 'hover:text-white'
+                                    }`}
+                                    onClick={() => {
+                                        setSidebarOpen(false);
+                                    }}
+                                >
+                                    <div className='flex items-center justify-between'>
+                                        <div className='grow flex items-center'>
+                                            {/* <IcomoonReact iconSet={} color='#444' size={100} icon='shower' /> */}
+                                            {/* <img src={list2_svg} className='' /> */}
+                                            {/* <svg>
+                                                <path d={list2_svg} />
+                                            </svg> */}
+                                            <CIcon
+                                                icon={cilScreenSmartphone}
+                                                className='text-primary'
+                                                size='7xl'
+                                                style={{ width: '20px' }}
+                                            />
+                                            <span className='text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200'>
+                                                Danh mục điện thoại
                                             </span>
                                         </div>
                                         {/* Badge */}

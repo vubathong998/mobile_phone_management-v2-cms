@@ -1,6 +1,6 @@
 //copied from theme
 import { useState, useRef, useEffect, FC, MouseEventHandler } from 'react';
-import Transition from '~/utils/Transition';
+import Transition from '~/pages/components/ThemeComponents/Transition';
 import UserAvatar from '~/media/images/user-avatar-32.png';
 import Cookies from 'js-cookie';
 import { useAppSelector } from '~/hooks/hooks';

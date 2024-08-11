@@ -15,3 +15,14 @@ export type BaseGetByPageResponse<T> = {
     result: T;
     total: number;
 };
+
+export type baseInfoModel = {
+    _id: string;
+    createdByName: string;
+    createdByDate: Date;
+    createdDateUnixTime: number;
+    lastEditedDate: Date;
+    lastEditedByName: string;
+    lastCreatedDateUnixTime: number;
+    __v: number;
+};

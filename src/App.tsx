@@ -5,6 +5,7 @@ import LayoutAccount from './pages/components/LayoutAccount/LayoutAccount';
 import Login from './pages/Account/Login';
 import Home from './pages/Home/Index';
 import { routes } from './routes/routeConfig';
+import { FunctionComponent } from 'react';
 
 function App() {
     return (
@@ -14,7 +15,8 @@ function App() {
                 <Route path='/' element={<Layout />}>
                     <Route path='home' element={<Home />} />
                     {routes.map((route) => {
-                        const Component = route.component as React.FunctionComponent<any>;
+                        console.log(route)
+                        const Component = route.component as FunctionComponent<any>;
                         return <Route path={route.path} element={<Component />} key={route.path} />;
                     })}
                 </Route>

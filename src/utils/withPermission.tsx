@@ -24,7 +24,6 @@ export const withPermission =
                     return val === PERMISSION.Admin;
                 });
                 if (isAdmin) {
-                    console.log({ permissionRequired, identityPermission });
                     hasPermission = true;
                 } else {
                     const checkPermission = permissionRequired.every((eachPermissionRequired) =>
